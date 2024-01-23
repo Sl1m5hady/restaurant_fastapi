@@ -1,4 +1,5 @@
 from pydantic import BaseModel, field_validator
+from uuid import UUID
 
 
 class MenuBase(BaseModel):
@@ -11,7 +12,7 @@ class MenuCreate(MenuBase):
 
 
 class Menu(MenuBase):
-    id: str
+    id: UUID
     description: str
     title: str
     submenus_count: int
@@ -31,7 +32,7 @@ class SubmenuCreate(SubmenuBase):
 
 
 class Submenu(SubmenuBase):
-    id: str
+    id: UUID
     description: str
     title: str
     dishes_count: int
@@ -51,7 +52,7 @@ class DishCreate(DishBase):
 
 
 class Dish(DishBase):
-    id: str
+    id: UUID
     description: str
     title: str
     price: float
@@ -59,6 +60,6 @@ class Dish(DishBase):
     class Config:
         orm_mode = True
 
-    @field_validator('price')
+    @field_validator("price")
     def get_str_price(cls, price: float):
-        return f'{price:.2f}'
+        return f"{price:.2f}"
